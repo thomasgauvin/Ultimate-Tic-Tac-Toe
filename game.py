@@ -16,10 +16,10 @@ class Game:
     }
 
     def __init__(self):
-        self.board = np.array([[str(x) for x in range(9)] for _ in range(9)])
+        self.board = np.array([["." for x in range(9)] for _ in range(9)])
         self.win_status = np.array([None] * 9)
         self.player_turn = 0
-        self.next_tile = ", ".join(Game.map_tile.keys())
+        self.next_tile = Game.map_tile.keys()
 
     def _show_board(self):
         for i in range(3):
@@ -37,52 +37,51 @@ class Game:
         print("-" * 25)
 
     def status(self):
-        print(f"Turn: Player {self.player_turn + 1}\nPossible tile: {self.next_tile}")
+        print(
+            f"Turn: Player {self.player_turn + 1} ({self.tick()})'s\nPossible tile: {self.next_tile}"
+        )
         self._show_board()
+        print()
 
-    def _check_win(player, tile):
-        def _win_tile():
-            tile[:] = player
-            self.win_status = player
+    def check_win(self, tile):
+        tick = self.tick()
 
         # Horizontal
         for i in range(3):
-            if all(player == x for x in tile[i * 3 : (i * 3) + 3]):
-                _win_tile()
-                return Truer
+            if all(tick == x for x in tile[i * 3 : (i * 3) + 3]):
+                return True
 
         # Vertical
         for i in range(3):
-            if all(player == x for x in tile[i * 3, (i * 3) + 1, (i * 3) + 2]):
-                _win_tile()
+            if all(tick == x for x in tile[[i, i + 3, i + 6]]):
                 return True
 
         # Diagonal
-        if all(player == x for x in tile[0, 4, 5]) or all(
-            player == x for x in tile[2, 4, 6]
+        return all(tick == x for x in tile[[0, 4, 5]]) or all(
+            tick == x for x in tile[[2, 4, 6]]
+        )
+
+    def make_move(self, outer_tile, inner_tile):
+
+        if (
+            self.board[Game.map_tile[outer_tile]][Game.map_tile[inner_tile]] != "."
+            or self.win_status[Game.map_tile[outer_tile]] is not None
         ):
-            _win_tile()
-            return True
+            return None
 
-        return False
-
-    def make_move(player, outer_tile, inner_tile):
-        self.board[outer_tile][inner_tile] = player
+        self.board[Game.map_tile[outer_tile]][Game.map_tile[inner_tile]] = self.tick()
 
         # Determine next playable outer tile(s)
-        if self.win_status[map_tile[inner_tile]] is None:
-            self.next_tile = inner_tile
+        if self.win_status[Game.map_tile[inner_tile]] is None:
+            self.next_tile = [inner_tile]
         else:
-            self.next_tile = ", ".join(
-                [
-                    tile
-                    for tile in Game.map_tile.keys()
-                    if win_status[Game.map_tile[tile]] is None
-                ]
-            )
+            self.next_tile = [
+                tile
+                for tile in Game.map_tile.keys()
+                if self.win_status[Game.map_tile[tile]] is None
+            ]
 
         return self.next_tile
 
-
-game = Game()
-game.status()
+    def tick(self):
+        return "X" if self.player_turn == 0 else "O"
