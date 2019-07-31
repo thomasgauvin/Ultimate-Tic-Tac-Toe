@@ -18,7 +18,7 @@ class Game:
     def __init__(self):
         self.board = np.array([["." for x in range(9)] for _ in range(9)])
         self.win_status = np.array([None] * 9)
-        self.player_turn = 0
+        self.player_turn = -1
         self.next_tile = Game.map_tile.keys()
 
     def _show_board(self):
