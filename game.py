@@ -57,7 +57,7 @@ class Game:
                 return True
 
         # Diagonal
-        return all(tick == x for x in tile[[0, 4, 5]]) or all(
+        return all(tick == x for x in tile[[0, 4, 8]]) or all(
             tick == x for x in tile[[2, 4, 6]]
         )
 

@@ -49,7 +49,7 @@ if __name__ == "__main__":
     game = Game()
     TIME_OUT_TIME = 1
     if args.verbose:
-        TIME_OUT_TIME = 30
+        TIME_OUT_TIME = 300
 
     timed_out = False
     forced_move = game.map_tile.keys()
@@ -70,7 +70,7 @@ if __name__ == "__main__":
             while True:
                 player_move = bots[game.player_turn].move()
                 if player_move[0] not in forced_move:
-                    pass
+                    continue
 
                 try:
                     if game.make_move(*player_move):
@@ -84,6 +84,15 @@ if __name__ == "__main__":
         if game.check_win(game.board[Game.map_tile[player_move[0]]]):
             tick = "X" if game.player_turn == 0 else "O"
             game.win_status[Game.map_tile[player_move[0]]] = tick
+
+            if player_move[0] == player_move[1]:
+                game.next_tile = [
+                    tile
+                    for i, tile in enumerate(Game.map_tile.keys())
+                    if game.win_status[i] is None
+                ]
+                forced_move = game.next_tile
+
             if game.check_win(game.win_status):
                 print(
                     f"\n{bots[game.player_turn].team_name} won!!!"
