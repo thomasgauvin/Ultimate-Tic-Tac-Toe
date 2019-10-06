@@ -1,2 +1,38 @@
-# Ultimate-Tic-Tac-Toe
-Tryout for CS Games 2020
+# CS Games Tryout: Artificial Intelligence
+Welcome to the second tryout for CS Games. Your task for this tryout will be to
+create a bot to win at the game of [Ultimate Tic-Tac-Toe](https://ultimate-t3.herokuapp.com/rules) make sure to get familliar with the rules.
+
+## Installation
+If you do not have **Python3** installed you can get it [here](https://www.python.org/downloads/release/python-374/).
+
+Create a virtual environment and install the requirements:
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+## Program execution
+To test you bot execute the following command:
+```bash
+python3 driver.py path/to/bot-1 path/to/bot-2
+```
+
+If you want to debug your bot it might be useful to use the `--verbose` flag as follows:
+```bash
+python3 driver.py path/to/bot-1 path/to/bot-2 --verbose
+```
+
+# Your Task
+You will only have to modify the file `my_bot.py`.
+You have to change the value of `self.team_name` to your team name.
+Afterwrds, implement the logic for your bot in the `my_bot.py` module.
+You are allowed to add function as needed.
+The `move` method will have to return a move `X/Y` were `X` and `Y` are geographic coordiantes among the followings: NW, N, NE, W, C, E, SW, S, SE.
+
+## Constraint
+* The first valid move your bot do will be registered
+* Your bot can attempt as many move as I want
+* You will have a 1 second timeout
+* If no move is registered after the timeout your bot lose the game
+
