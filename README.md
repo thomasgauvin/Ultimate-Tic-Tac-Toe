@@ -17,6 +17,7 @@ To test you bot execute the following command:
 ```bash
 python3 driver.py path/to/bot-1 path/to/bot-2
 ```
+** Do not include the `.py` extension**
 
 If you want to debug your bot it might be useful to use the `--verbose` flag as follows:
 ```bash
