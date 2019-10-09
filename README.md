@@ -30,6 +30,7 @@ You have to change the value of `self.team_name` to your team name.
 Afterwrds, implement the logic for your bot in the `my_bot.py` module.
 You are allowed to add function as needed.
 The `move` method will have to return a move `X/Y` were `X` and `Y` are geographic coordiantes among the followings: NW, N, NE, W, C, E, SW, S, SE.
+e.g. "NW/C" would place a move in the center (small) of the top-right (big).
 
 ## Constraint
 * The first valid move your bot do will be registered
