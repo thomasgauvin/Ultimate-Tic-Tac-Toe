@@ -36,17 +36,17 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Import bot class
+    game = Game()
     bots = list()
     mod = importlib.import_module(args.bot1)
     bot1 = getattr(mod, "bot")
-    bots.append(bot1())
+    bots.append(bot1(game))
 
     mod = importlib.import_module(args.bot2)
     bot2 = getattr(mod, "bot")
-    bots.append(bot2())
+    bots.append(bot2(game))
 
     # Start game
-    game = Game()
     TIME_OUT_TIME = 1
     if args.verbose:
         TIME_OUT_TIME = 300
