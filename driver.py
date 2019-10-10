@@ -6,7 +6,7 @@ import signal
 from game import Game
 
 import my_bot as bot1
-import my_bot as bot2
+import felix as bot2
 
 
 @contextmanager
